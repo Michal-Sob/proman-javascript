@@ -3,6 +3,7 @@ import csv
 STATUSES_FILE = './data/statuses.csv'
 BOARDS_FILE = './data/boards.csv'
 CARDS_FILE = './data/cards.csv'
+USERS_FILE = './data/users.csv'
 
 _cache = {}  # We store cached data in this dict to avoid multiple file readings
 
@@ -19,6 +20,14 @@ def _read_csv(file_name):
         for row in rows:
             formatted_data.append(dict(row))
         return formatted_data
+
+
+def write_csv(file_path, new_row):
+    fieldnames = ["username", "password"]
+    with open(file_path, 'a', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        return writer.writerow(new_row)
 
 
 def _get_data(data_type, file, force):
@@ -49,3 +58,13 @@ def get_boards(force=False):
 
 def get_cards(force=False):
     return _get_data('cards', CARDS_FILE, force)
+
+
+def get_user(username):
+    users = _read_csv(USERS_FILE)
+
+    for user in users:
+        for key, value in user.items():
+            if key == 'username' and value == username:
+                print(user)
+                return user['password']

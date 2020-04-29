@@ -12,9 +12,11 @@
   <div class="form-group ">
     <label for="password">Password</label>
     <input type="password" class="form-control" aria_describedby="passwordHelp" name="password" id="password" placeholder="Password">
-      <small id="passwordHelp" class="form-text">We'll never share your password with anyone else.</small>
+      <small id="passwordHelp" class="form-text">We'll never share your data with anyone else.</small>
   </div>
   <button type="submit" class="btn btn-primary">{{ submit }}</button>
 </form>
-
+    {% if wrong_data %}
+    <h2>{{ wrong_data}}</h2>
+    {% endif %}
 {% endblock %}

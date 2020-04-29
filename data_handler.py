@@ -1,6 +1,7 @@
 import persistence
 import bcrypt
 from flask import sessions
+from os import urandom
 
 
 def get_card_status(status_id):
@@ -31,6 +32,7 @@ def get_cards_for_board(board_id):
             matching_cards.append(card)
     return matching_cards
 
+
 def hash_password(plain_text_password):
     # By using bcrypt, the salt is saved into the hash itself
     hashed_bytes = bcrypt.hashpw(plain_text_password.encode('utf-8'), bcrypt.gensalt())
@@ -40,3 +42,10 @@ def hash_password(plain_text_password):
 def verify_password(plain_text_password, hashed_password):
     hashed_bytes_password = hashed_password.encode('utf-8')
     return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_bytes_password)
+
+
+def new_user(new_user):
+    hashed = hash_password(new_user["password"])
+    new_row = {'username': new_user['username'], 'password': hashed}
+    persistence.write_csv('data/users.csv', new_row)
+
