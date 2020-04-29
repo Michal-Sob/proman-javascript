@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
 from util import json_response
 
 import data_handler
@@ -32,6 +32,18 @@ def get_cards_for_board(board_id: int):
     """
     return data_handler.get_cards_for_board(board_id)
 
+
+@app.route("/login")
+def login():
+    pass
+
+
+@app.route("/registration", methods=["GET", "POST"])
+def registration():
+    if request.method == "POST":
+        new_user = request.form
+
+    return render_template("login&&registration_form.html", submit="Registration", action='registration')
 
 def main():
     app.run(debug=True)

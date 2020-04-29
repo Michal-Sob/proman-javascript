@@ -1,4 +1,6 @@
 import persistence
+import bcrypt
+from flask import sessions
 
 
 def get_card_status(status_id):
@@ -28,3 +30,13 @@ def get_cards_for_board(board_id):
             card['status_id'] = get_card_status(card['status_id'])  # Set textual status for the card
             matching_cards.append(card)
     return matching_cards
+
+def hash_password(plain_text_password):
+    # By using bcrypt, the salt is saved into the hash itself
+    hashed_bytes = bcrypt.hashpw(plain_text_password.encode('utf-8'), bcrypt.gensalt())
+    return hashed_bytes.decode('utf-8')
+
+
+def verify_password(plain_text_password, hashed_password):
+    hashed_bytes_password = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_bytes_password)

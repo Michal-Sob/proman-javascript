@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>ProMan</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+
+        <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    </head>
+    <body>
+
+    {#    NAVBAR    #}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border border-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="navbar-brand">
+                    ProMan
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Public boards</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Private boards</a>
+                </li>
+
+
+            </ul>
+            <ul class="navbar-nav ml-auto"
+                {% if not logged_in %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/registration">Registration <span class="sr-only">Registration button</span></a>
+                </li>
+                {% endif %}
+
+                {% if not logged_in %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Log in <span class="sr-only">Log in button</span></a>
+                </li>
+                {% endif %}
+
+                {% if logged_in %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Logout
+                </li>
+                {% endif %}
+
+                {% if logged_in %}
+                <span class="navbar-text justify-content-right">
+                    Signed in as {{ username }}
+                </span>
+                {% endif %}
+            </div>
+        </nav>
+            {# END OF NAVBAR #}
+        {% block body %} {% endblock %}
+    </body>
+</html>
+
