@@ -35,7 +35,7 @@ def get_cards_for_board(board_id: int):
 
 @app.route("/login")
 def login():
-    pass
+    pass # login
 
 
 @app.route("/registration", methods=["GET", "POST"])
